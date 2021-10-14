@@ -76,7 +76,7 @@ namespace mono_newton_directx {
                             bestSol = sol;
                         }
                     }
-                    Color color = Color.White;
+                    Color color = Color.Black;
                     if(bestSol == solutions[0])
                         color = Color.Red;
                     else if(bestSol == solutions[1])
@@ -87,8 +87,6 @@ namespace mono_newton_directx {
                         color = Color.Purple;
                     else if(bestSol == solutions[4])
                         color = Color.Orange;
-                    else
-                        color = Color.Black; // error!
                     spriteBatch.Draw(Pixel, new Vector2(x, y), null, color, 0f, Vector2.Zero, pixelSize, SpriteEffects.None, 0);
                 }
             }
