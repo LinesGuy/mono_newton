@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace mono_newton
+namespace mono_newton_directx
 {
     public static class Program
     {

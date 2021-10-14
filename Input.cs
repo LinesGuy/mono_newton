@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Input;
-namespace mono_newton {
+namespace mono_newton_directx
+{
     static class Input {
         public static KeyboardStateExtended Keyboard;
         public static MouseStateExtended LastMouse;

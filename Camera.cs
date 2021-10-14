@@ -2,7 +2,8 @@
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 
-namespace mono_newton {
+namespace mono_newton_directx
+{
     static class Camera {
         public static Vector2 CameraPosition = new Vector2(0, 0);
         public static float Zoom = 100;
