@@ -2,7 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Numerics;
+using System.Threading.Tasks;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace mono_newton_directx {
@@ -12,7 +15,7 @@ namespace mono_newton_directx {
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
         public static Texture2D Pixel { get; private set; }
         public static SpriteFont DebugFont { get; private set; }
-        public static int pixelSize = 8;
+        public static int pixelSize = 3;
         public static List<Vector2> polynomial = new List<Vector2> {
             new Vector2(1, 5),
             new Vector2(-1, 0)
@@ -52,7 +55,19 @@ namespace mono_newton_directx {
         }
         protected override void Draw(GameTime gameTime) {
             spriteBatch.Begin();
-            for(int y = 0; y < ScreenSize.Y; y += pixelSize) {
+            List<List<int>> grid = new List<List<int>>();
+            var watch = Stopwatch.StartNew();
+            List<int> zeroRow = new List<int>();
+            for(int y = 0; y < ScreenSize.Y; y += pixelSize)
+                zeroRow.Add(0);
+            for(int x = 0; x < (int)ScreenSize.X; x += pixelSize)
+                grid.Add(zeroRow);
+            //for(int y = 0; y < ScreenSize.Y; y += pixelSize) {
+            //Parallel.ForEach(Enumerable.Range(0, (int)(ScreenSize.Y / pixelSize)).Select(y => y * pixelSize), y => {
+
+            Parallel.For(0, (int)(ScreenSize.Y / pixelSize), z => {
+                var y = z * pixelSize;
+                List<int> row = new List<int>();
                 for(int x = 0; x < ScreenSize.X; x += pixelSize) {
                     Vector2 coords = Camera.screen_to_world_pos(new Vector2(x, y));
                     Complex coordsComplex = new Complex(coords.X, coords.Y);
@@ -76,7 +91,8 @@ namespace mono_newton_directx {
                             bestSol = sol;
                         }
                     }
-                    Color color = Color.Black;
+
+                    /*Color color = Color.Black;
                     if(bestSol == solutions[0])
                         color = Color.Red;
                     else if(bestSol == solutions[1])
@@ -86,10 +102,48 @@ namespace mono_newton_directx {
                     else if(bestSol == solutions[3])
                         color = Color.Purple;
                     else if(bestSol == solutions[4])
+                        color = Color.Orange;*/
+                    int color = 0;
+                    if(bestSol == solutions[0])
+                        color = 1;
+                    else if(bestSol == solutions[1])
+                        color = 2;
+                    else if(bestSol == solutions[2])
+                        color = 3;
+                    else if(bestSol == solutions[3])
+                        color = 4;
+                    else if(bestSol == solutions[4])
+                        color = 5;
+                    //spriteBatch.Draw(Pixel, new Vector2(x, y), null, color, 0f, Vector2.Zero, pixelSize, SpriteEffects.None, 0);
+                    //grid[x][y] = color;
+                    row.Add(color);
+                }
+                grid[y] = row;
+                //System.Diagnostics.Debug.WriteLine(row.Count);
+            });
+            watch.Stop();
+            Debug.WriteLine($"Calc: {watch.ElapsedMilliseconds}");
+            watch = Stopwatch.StartNew();
+            Debug.WriteLine($"grid.count {grid.Count}, {grid[0].Count}");
+            for(int y = 0; y < (int)(ScreenSize.Y / pixelSize); y++) {
+                for(int x = 0; x < (int)(ScreenSize.X / pixelSize); x++) {
+                    var cell = grid[y][x];
+                    Color color = Color.Black;
+                    if (cell == 1)
+                        color = Color.Red;
+                    else if(cell == 2)
+                        color = Color.Green;
+                    else if(cell == 3)
+                        color = Color.Blue;
+                    else if(cell == 4)
+                        color = Color.Purple;
+                    else if(cell == 5)
                         color = Color.Orange;
-                    spriteBatch.Draw(Pixel, new Vector2(x, y), null, color, 0f, Vector2.Zero, pixelSize, SpriteEffects.None, 0);
+                    spriteBatch.Draw(Pixel, new Vector2(x * pixelSize, y * pixelSize), null, color, 0f, Vector2.Zero, pixelSize, SpriteEffects.None, 0);
                 }
             }
+            watch.Stop();
+            Debug.WriteLine($"Draw: {watch.ElapsedMilliseconds}");
             spriteBatch.DrawString(DebugFont, Camera.screen_to_world_pos(Input.MousePosition).ToString(), Vector2.Zero, Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
