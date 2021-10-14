@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Extended;
 
-namespace mono_newton_directx
-{
+namespace mono_newton_directx {
     static class Camera {
         public static Vector2 CameraPosition = new Vector2(0, 0);
         public static float Zoom = 100;
@@ -32,23 +30,23 @@ namespace mono_newton_directx
         public static void Update() {
             // Freecam (disables lerp if used)
             Vector2 direction = Vector2.Zero;
-            if (Input.Keyboard.IsKeyDown(Keys.Left) || Input.Keyboard.IsKeyDown(Keys.A))
+            if(Input.Keyboard.IsKeyDown(Keys.Left) || Input.Keyboard.IsKeyDown(Keys.A))
                 direction.X -= 1;
-            if (Input.Keyboard.IsKeyDown(Keys.Right) || Input.Keyboard.IsKeyDown(Keys.D))
+            if(Input.Keyboard.IsKeyDown(Keys.Right) || Input.Keyboard.IsKeyDown(Keys.D))
                 direction.X += 1;
-            if (Input.Keyboard.IsKeyDown(Keys.Up) || Input.Keyboard.IsKeyDown(Keys.W))
+            if(Input.Keyboard.IsKeyDown(Keys.Up) || Input.Keyboard.IsKeyDown(Keys.W))
                 direction.Y -= 1;
-            if (Input.Keyboard.IsKeyDown(Keys.Down) || Input.Keyboard.IsKeyDown(Keys.S))
+            if(Input.Keyboard.IsKeyDown(Keys.Down) || Input.Keyboard.IsKeyDown(Keys.S))
                 direction.Y += 1;
-            if (direction != Vector2.Zero) {
+            if(direction != Vector2.Zero) {
                 direction *= 5 / Zoom;
                 move_relative(direction);
             }
 
             // Zoom (Q and E)
-            if (Input.Keyboard.IsKeyDown(Keys.Q))
+            if(Input.Keyboard.IsKeyDown(Keys.Q))
                 Zoom /= 1.03f;
-            if (Input.Keyboard.IsKeyDown(Keys.E))
+            if(Input.Keyboard.IsKeyDown(Keys.E))
                 Zoom *= 1.03f;
         }
 

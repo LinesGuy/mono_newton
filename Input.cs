@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Input;
-namespace mono_newton_directx
-{
+namespace mono_newton_directx {
     static class Input {
         public static KeyboardStateExtended Keyboard;
         public static MouseStateExtended LastMouse;
@@ -17,16 +16,16 @@ namespace mono_newton_directx
         public static Vector2 GetMovementDirection() {
             Vector2 direction = Vector2.Zero;
 
-            if (Keyboard.IsKeyDown(Keys.A))
+            if(Keyboard.IsKeyDown(Keys.A))
                 direction.X -= 1;
-            if (Keyboard.IsKeyDown(Keys.D))
+            if(Keyboard.IsKeyDown(Keys.D))
                 direction.X += 1;
-            if (Keyboard.IsKeyDown(Keys.W))
+            if(Keyboard.IsKeyDown(Keys.W))
                 direction.Y -= 1;
-            if (Keyboard.IsKeyDown(Keys.S))
+            if(Keyboard.IsKeyDown(Keys.S))
                 direction.Y += 1;
 
-            if (direction.LengthSquared() > 1)
+            if(direction.LengthSquared() > 1)
                 direction.Normalize();
 
             return direction;
