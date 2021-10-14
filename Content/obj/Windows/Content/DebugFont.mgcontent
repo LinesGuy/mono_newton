@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/t0071147/source/repos/mono_newton_directx/mono_newton_directx/Content/DebugFont.spritefont</SourceFile>
+  <SourceFile>C:/Users/t0071147/Documents/GitHub/mono_newton/Content/DebugFont.spritefont</SourceFile>
   <SourceTime>2021-10-14T12:27:08.3957722+01:00</SourceTime>
-  <DestFile>C:/Users/t0071147/source/repos/mono_newton_directx/mono_newton_directx/Content/bin/Windows/Content/DebugFont.xnb</DestFile>
-  <DestTime>2021-10-14T12:31:20.6036655+01:00</DestTime>
+  <DestFile>C:/Users/t0071147/Documents/GitHub/mono_newton/Content/bin/Windows/Content/DebugFont.xnb</DestFile>
+  <DestTime>2021-10-14T12:37:14.6432324+01:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2020-08-10T17:17:54+01:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>
