@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/t0071147/Documents/GitHub/mono_newton/Content/pixel.png</SourceFile>
-  <SourceTime>2021-10-14T12:27:08.400758+01:00</SourceTime>
-  <DestFile>C:/Users/t0071147/Documents/GitHub/mono_newton/Content/bin/Windows/Content/pixel.xnb</DestFile>
-  <DestTime>2021-10-14T12:37:14.6571952+01:00</DestTime>
+  <SourceFile>C:/Users/gudge/Source/Repos/mono_newton/Content/pixel.png</SourceFile>
+  <SourceTime>2021-10-14T17:00:24.9048781+01:00</SourceTime>
+  <DestFile>C:/Users/gudge/Source/Repos/mono_newton/Content/bin/Windows/Content/pixel.xnb</DestFile>
+  <DestTime>2021-10-15T22:04:13.8768491+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T17:17:54+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
