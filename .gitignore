@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# mgcontent shut up
+*.mgcontent
+
 # User-specific files
 *.rsuser
 *.suo
