@@ -88,28 +88,29 @@ namespace mono_newton_directx
                 // For each pixel in row
                 for (int x = 0; x < ScreenSize.X; x += pixelSize)
                 {
-                    Vector2 coords = screen_to_world_pos(new Vector2(x, y));
-                    Complex coordsComplex = new Complex(coords.X, coords.Y);
-                    Complex newtonCoordsComplex = coordsComplex;
+                    Vector2 coords = screen_to_world_pos(new Vector2(x, y)); // Get pixel coordinates on screen and convert to cartesian coordinates
+                    Complex coordsComplex = new Complex(coords.X, coords.Y); // Convert cartesian to complex
+                    Complex newtonCoordsComplex = coordsComplex; // Variable for storing newton iteration result
                     for (int i = 0; i <= iterations; i++)
                     {
-                        Complex polySum = Complex.Zero;
-                        Complex derSum = Complex.Zero;
+                        Complex polySum = Complex.Zero; // f(x)
+                        Complex derSum = Complex.Zero; // f'(x)
+                        // Calculate f(x) and f'(x) values
                         foreach (var term in polynomial)
                         {
                             polySum += term.X * Complex.Pow(newtonCoordsComplex, term.Y);
                             derSum += term.X * term.Y * Complex.Pow(newtonCoordsComplex, term.Y - 1);
                         }
-                        newtonCoordsComplex = newtonCoordsComplex - polySum / derSum;
+                        newtonCoordsComplex = newtonCoordsComplex - polySum / derSum; // x = x - f(x) / f'(x)
                     }
-                    Vector2 newtonCoords = new Vector2((float)newtonCoordsComplex.Real, (float)newtonCoordsComplex.Imaginary);
-                    Complex bestSol = Complex.Zero;
-                    float bestDist = float.PositiveInfinity;
+                    Vector2 newtonCoords = new Vector2((float)newtonCoordsComplex.Real, (float)newtonCoordsComplex.Imaginary); // Convert complex to cartesian
+                    Complex bestSol = Complex.Zero; // Variable for storing nearest solution so far
+                    float bestDist = float.PositiveInfinity; // Distance (squared) of nearest solution so far
                     // Find nearest root
                     foreach (var sol in solutions)
                     {
-                        var dist = Vector2.DistanceSquared(new Vector2((float)sol.Real, (float)sol.Imaginary), newtonCoords);
-                        if (dist < bestDist)
+                        var dist = Vector2.DistanceSquared(new Vector2((float)sol.Real, (float)sol.Imaginary), newtonCoords); // Distance squared can be calculated faster than actual distance and does not affect method
+                        if (dist < bestDist) // Check if this root is closer than the current closer root
                         {
                             bestDist = dist;
                             bestSol = sol;
@@ -139,7 +140,7 @@ namespace mono_newton_directx
                     else if (cell == 3) color = Color.Blue;
                     else if (cell == 4) color = Color.Purple;
                     else if (cell == 5) color = Color.Orange;
-                    spriteBatch.Draw(Pixel, new Vector2(x * pixelSize, y * pixelSize), null, color, 0f, Vector2.Zero, pixelSize, SpriteEffects.None, 0);
+                    spriteBatch.Draw(Pixel, new Vector2(x * pixelSize, y * pixelSize), null, color, 0f, Vector2.Zero, pixelSize, SpriteEffects.None, 0); // Draw the pixel
                 }
             }
             spriteBatch.DrawString(DebugFont, screen_to_world_pos(Mouse.Position.ToVector2()).ToString(), Vector2.Zero, Color.White); // Mouse coordinates
