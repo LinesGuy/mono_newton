@@ -2,7 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Input;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Numerics;
 using System.Threading.Tasks;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
@@ -24,12 +26,13 @@ namespace mono_newton_directx
         public SpriteFont DebugFont { get; private set; }
         // Settings
         public int pixelSize = 8;
-        public int iterations = 5;
-        public List<Vector2> polynomial = new List<Vector2> { new Vector2(1, 5), new Vector2(-1, 0) };
+        public int iterations = 2;
+        public List<Vector2> polynomial = new List<Vector2> { new Vector2(1, 3), new Vector2(-1, 0) };
         public List<Complex> solutions = new List<Complex> { new Complex(1, 0), new Complex(-0.809, -0.588), new Complex(0.309, 0.951), new Complex(0.309, -0.951), new Complex(-0.809, 0.588) };
+        public float offset;
         // Camera stuffs
         public static Vector2 CameraPosition = new Vector2(0, 0);
-        public static float Zoom = 100;
+        public static float Zoom = 300;
         public Vector2 world_to_screen(Vector2 worldPosition) { return ((worldPosition - CameraPosition) * Zoom) + ScreenSize / 2; }
         public static Vector2 screen_to_world_pos(Vector2 screenPos) { return (screenPos - GameRoot.ScreenSize / 2) / Zoom + CameraPosition; }
         public GameRoot()
@@ -50,6 +53,14 @@ namespace mono_newton_directx
         {
             Keyboard = KeyboardExtended.GetState();
             Mouse = MouseExtended.GetState();
+            // Rotate solutions
+            solutions = new List<Complex>();
+            offset += 0.005f;
+            for (int i = 0; i < 5; i++)
+            {
+                float z = (float)i / 5 * MathF.PI * 2;
+                solutions.Add(new Complex(Math.Cos(z + offset), Math.Sin(z + offset)));
+            }
             // Camera (arrow keys or WASD)
             Vector2 direction = Vector2.Zero;
             if (Keyboard.IsKeyDown(Keys.Left) || Keyboard.IsKeyDown(Keys.A)) direction.X -= 1;
