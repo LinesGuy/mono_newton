@@ -32,7 +32,7 @@ namespace mono_newton_directx
         public float offset;
         // Camera stuffs
         public static Vector2 CameraPosition = new Vector2(0, 0);
-        public static float Zoom = 300;
+        public static float Zoom = 200;
         public Vector2 world_to_screen(Vector2 worldPosition) { return ((worldPosition - CameraPosition) * Zoom) + ScreenSize / 2; }
         public static Vector2 screen_to_world_pos(Vector2 screenPos) { return (screenPos - GameRoot.ScreenSize / 2) / Zoom + CameraPosition; }
         public GameRoot()
@@ -100,6 +100,7 @@ namespace mono_newton_directx
                 for (int x = 0; x < ScreenSize.X; x += pixelSize)
                 {
                     Vector2 coords = screen_to_world_pos(new Vector2(x, y)); // Get pixel coordinates on screen and convert to cartesian coordinates
+                    coords = new Vector2(coords.X * MathF.Cos(offset) - coords.Y * MathF.Sin(offset), coords.X * MathF.Sin(offset) + coords.Y * MathF.Cos(offset)); // rotate for fancy effect (not canonically part of newton method fractal)
                     Complex coordsComplex = new Complex(coords.X, coords.Y); // Convert cartesian to complex
                     Complex newtonCoordsComplex = coordsComplex; // Variable for storing newton iteration result
                     for (int i = 0; i <= iterations; i++)
